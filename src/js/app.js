@@ -19,6 +19,12 @@ var ViewModel = function() {
   Locations.forEach(function(locationitem) {
     self.placelist.push(new Location(locationitem));
   });
+
+  this.currentplace = ko.observable(this.placelist()[0]);
+
+  this.SetPlace = function(clickedPlace){
+    self.currentplace(clickedPlace);
+  };
 }
 
 ko.applyBindings(new ViewModel());
