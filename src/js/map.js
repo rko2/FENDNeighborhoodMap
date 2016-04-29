@@ -6,7 +6,7 @@ function initMap() {
     zoom: 3,
     styles: [{
       featureType: 'poi',
-      stylers: [{ visibility: 'off' }]  // Turn off points of interest.
+      stylers: [{ visibility: 'on' }]  // Turn on points of interest.
     }, {
       featureType: 'transit.station',
       stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
