@@ -22,7 +22,7 @@ var ViewModel = function() {
 
   this.currentplace = ko.observable(this.placelist()[0]);
 
-  this.SetPlace = function(clickedPlace){
+  this.SetPlace = function(clickedPlace) {
     self.currentplace(clickedPlace);
   };
 }
