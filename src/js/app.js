@@ -1,29 +1,44 @@
-var Locations = [{
-  name: "Name1",
-  address: "Address1"
-},
-{
-  name: "Name2",
-  address: "Address2"
-}];
+var LocationFilters = [
+  {
+    name: "Stores",
+    request: {
+      location: {
+        lat: 41.908730,
+        lng: -87.679385
+      },
+      radius: 750,
+      types: ['store']
+    }
+  }, {
+    name: "Restaurants",
+    request: {
+      location: {
+        lat: 41.908730,
+        lng: -87.679385
+      },
+      radius: 750,
+      types: ['restaurant']
+    }
+  }
+];
 
 var Location = function(data) {
   this.name = ko.observable(data.name);
-  this.address = ko.observable(data.address);
+  this.request = ko.observable(data.request);
 }
 
 var ViewModel = function() {
   var self = this;
 
-  this.placelist = ko.observableArray([]);
-  Locations.forEach(function(locationitem) {
-    self.placelist.push(new Location(locationitem));
+  this.filterlist = ko.observableArray([]);
+  LocationFilters.forEach(function(locationitem) {
+    self.filterlist.push(new Location(locationitem));
   });
 
-  this.currentplace = ko.observable(this.placelist()[0]);
+  this.currentfilter = ko.observable(this.filterlist()[0]);
 
   this.SetPlace = function(clickedPlace) {
-    self.currentplace(clickedPlace);
+    self.currentfilter(clickedPlace);
   };
 }
 

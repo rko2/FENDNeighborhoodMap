@@ -77,33 +77,14 @@ function initMap() {
     map.fitBounds(bounds);
   });
 
-// requests for places search API - NOT searchbox. Temporary.
-
-  var storerequest = {
-    location: {
-      lat: 41.908730,
-      lng: -87.679385
-    },
-    radius: 1000,
-    types: ['store']
-  };
-
-  var foodrequest = {
-    location: {
-      lat: 41.908730,
-      lng: -87.679385
-    },
-    radius: 1000,
-    types: ['restaurant']
-  };
+/* hardcoded locations below
 
   var infowindow = new google.maps.InfoWindow();
 
   service = new google.maps.places.PlacesService(map);
 
   //Two requests for different places searches. Temporary.
-  service.nearbySearch(storerequest, callback);
-  service.nearbySearch(foodrequest, callback);
+  service.nearbySearch(ViewModel.currentplace, callback);
 
   function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -127,4 +108,5 @@ function initMap() {
       infowindow.open(map, this);
     });
   }
+  */
 }

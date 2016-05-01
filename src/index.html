@@ -11,16 +11,16 @@
 <body>
   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
   <div id="map"></div>
-  <ul id="place-list" data-bind="foreach: placelist">
+  <ul id="place-list" data-bind="foreach: filterlist">
     <div id="place">
-      <li data-bind="text: name"></li>
+      <li data-bind="text: name, click: $parent.SetPlace"></li>
     </div>
   </ul>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBecyRkkN-0rCzps3UmZx4NKEr3g4_5tfs&libraries=places&callback=initMap" async defer></script>
-  <script src="js/map.js"></script>
   <script src="js/lib/knockout-3.4.0.js"></script>
   <script src="js/lib/jquery-1.12.3.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/map.js"></script>
 </body>
 
 </html>
