@@ -9,12 +9,14 @@
 </head>
 
 <body>
+  <div class="search">
+    <form data-bind="submit: updateResults">
+      <button type="button" data-bind="click: updateResults">Search</button>
+      <input type="text" data-bind="value: Term">
+    </form>
+    <ul class="results"></ul>
+  </div>
   <div id="map"></div>
-  <ul id="place-list" data-bind="foreach: placelist">
-    <div id="place">
-      <li data-bind="text: name"></li>
-    </div>
-  </ul>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBecyRkkN-0rCzps3UmZx4NKEr3g4_5tfs&libraries=places&callback=initMap" async defer></script>
   <script src="js/lib/knockout-3.4.0.js"></script>
   <script src="js/lib/jquery-1.12.3.js"></script>
