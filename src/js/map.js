@@ -69,44 +69,61 @@ function googleMarkers(place) {
   }
 }
 
-function Yelp(around, searchfor) {
-  var auth = {
-    consumerKey: "PDTwNISGHOMT--mxGVuM9w",
-    consumerSecret: "id_cBoLI1WywV1Pgechh_o8qnbE",
-    accessToken: "56ehWaYgsMGVbzmfQQb90OKbAOxhYbPQ",
-    // This example is a proof of concept, for how to use the Yelp v2 API with javascript.
-    // You wouldn't actually want to expose your access token secret like this in a real application.
-    accessTokenSecret: "8T_r9zF3EV3WH65VIiaknZB34qg",
-    serviceProvider: {
-      signatureMethod: "HMAC-SHA1"
-    }
-  };
+function Yelp(searchNear, searchFor) {
+	/*
+	 *	Details for Yelp OAuth2
+	 *	This info would never make it to prod - it's only used right now as Proof-of-concept
+	 */
+	var auth = {
+			    consumerKey : "PDTwNISGHOMT--mxGVuM9w",
+			    consumerSecret : "id_cBoLI1WywV1Pgechh_o8qnbE",
+			    accessToken : "56ehWaYgsMGVbzmfQQb90OKbAOxhYbPQ",
+			    accessTokenSecret : "8T_r9zF3EV3WH65VIiaknZB34qg",
+			    serviceProvider : {
+			        signatureMethod : "HMAC-SHA1"
+			    }
+			};
 
-  var accessor = {
-    consumerSecret: auth.consumerSecret,
-    tokenSecret: auth.accessTokenSecret
-  };
+	/*
+	 *	Create a variable "accessor" to pass on to OAuth.SignatureMethod
+	 */
+	var accessor = {
+	    consumerSecret : auth.consumerSecret,
+	    tokenSecret : auth.accessTokenSecret
+	};
 
-  parameters = [];
-  parameters.push(['term', searchfor]);
-  parameters.push(['location', around]);
-  parameters.push(['callback', 'cb']);
-  parameters.push(['oauth_consumer_key', auth.consumerKey]);
-  parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
-  parameters.push(['oauth_token', auth.accessToken]);
-  parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+	/*
+	 *	Create a array object "parameter" to pass on "message" JSON object
+	 */
+	var parameters = [];
+	parameters.push(['term', searchFor]);
+	parameters.push(['location', searchNear]);
+	parameters.push(['callback', 'cb']);
+	parameters.push(['oauth_consumer_key', auth.consumerKey]);
+	parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+	parameters.push(['oauth_token', auth.accessToken]);
+	parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
 
-  var message = {
-    'action': 'http://api.yelp.com/v2/search',
-    'method': 'GET',
-    'parameters': parameters
-  };
+	/*
+	 *	Create a JSON object "message" to pass on to OAuth.setTimestampAndNonce
+	 */
+	var message = {
+	    'action' : 'http://api.yelp.com/v2/search',
+	    'method' : 'GET',
+	    'parameters' : parameters
+	};
 
-  OAuth.setTimestampAndNonce(message);
-  OAuth.SignatureMethod.sign(message, accessor);
+	/*
+	 *	OAuth proof-of-concept using JS
+	 */
+	OAuth.setTimestampAndNonce(message);
+	OAuth.SignatureMethod.sign(message, accessor);
 
-  var parameterMap = OAuth.getParameterMap(message.parameters);
-  yelpajax(message.action, parameterMap);
+	/*
+	 *	OAuth proof-of-concept using JS
+	 */
+	var parameterMap = OAuth.getParameterMap(message.parameters);
+	yelpajax(message.action, parameterMap);
 }
 
 function yelpajax(url, yelpdata) {
