@@ -177,4 +177,4 @@ function listdisplay(data) {
   }
 
   initMap();
-  Yelp('60622', 'Tattoo Shop');
+  Yelp('60622', 'Tattoo');

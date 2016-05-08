@@ -1,7 +1,7 @@
 var ViewModel = function() {
   var self = this;
 
-  this.Term = ko.observable('Tattoo Shop');
+  this.Term = ko.observable('Tattoo');
 
   this.updateResults = function(searched) {
     ko.computed(function() {
