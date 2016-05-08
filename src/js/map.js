@@ -18,6 +18,7 @@ function initMap() {
 // Create markers to put on the map.
 function googleMarkers(place) {
   var infowindow = new google.maps.InfoWindow();
+
   function makeinfowindow(m) {
     var windowContent = '<div>';
     windowContent += '<h4>' + m.title + '</h4>';
@@ -29,6 +30,7 @@ function googleMarkers(place) {
     infowindow.setContent(String(windowContent));
     infowindow.open(map, m);
   }
+
   function deleteMarkers() {
     for (var i = 0; i < allmarkers.length; i++) {
       allmarkers[i].setMap(null);
@@ -58,24 +60,25 @@ function googleMarkers(place) {
     google.maps.event.addListener(mrkr, 'mouseover', (function(m, i) {
       return function() {
         makeinfowindow(m);
-      }
+      };
     })(mrkr, i));
 
     google.maps.event.addListener(mrkr, 'click', (function(m, i) {
       return function() {
         makeinfowindow(m);
-      }
+      };
     })(mrkr, i));
   }
 }
 
 function Yelp(around, searchfor) {
   var auth = {
+
+    // This example is a proof of concept, for how to use the Yelp v2 API with javascript.
+    // You wouldn't actually want to expose your access token secret like this in a real application.
     consumerKey: "PDTwNISGHOMT--mxGVuM9w",
     consumerSecret: "id_cBoLI1WywV1Pgechh_o8qnbE",
     accessToken: "56ehWaYgsMGVbzmfQQb90OKbAOxhYbPQ",
-    // This example is a proof of concept, for how to use the Yelp v2 API with javascript.
-    // You wouldn't actually want to expose your access token secret like this in a real application.
     accessTokenSecret: "8T_r9zF3EV3WH65VIiaknZB34qg",
     serviceProvider: {
       signatureMethod: "HMAC-SHA1"
@@ -115,6 +118,7 @@ function yelpajax(url, yelpdata) {
     'data': yelpdata,
     'dataType': 'jsonp',
     'global': true,
+    'cache' : true,
     'jsonpCallback': 'cb',
     'success': function(data) {
       listdisplay(data);
@@ -132,8 +136,8 @@ function listdisplay(data) {
   if (results.length > 0) {
 
     // Iterate through results and create listings.
-    for (result in results) {
-      var business = results[result],
+    for (var i = 0; i < results.length; i++) {
+      var business = results[i],
         name = business.name,
         img = business.image_url,
         phone = business.display_phone,
@@ -149,7 +153,7 @@ function listdisplay(data) {
       makelist += '<img src="' + rating + '"></div>';
       makelist += '<h3>' + name + '</h3>';
       makelist += '<p><span>' + loc + '</span></p>';
-      makelist += '<p>' + ph + '</p>';
+      makelist += '<p>' + phone + '</p>';
       makelist += '<a href="' + url + '"> Yelp!</a>';
       makelist += '</div></li>';
 
@@ -163,18 +167,19 @@ function listdisplay(data) {
 
       // Add results to the list.
       yelpResults.append(listing);
+      listing = '';
 
       // Place markers on map with Google Maps.
       google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
     }
   } else {
-      var searchedFor = $('input').val();
-      $yelpResults.append('<li><h3>Oh no! We can\'t seem to find anything for <span>' + searchedFor + '</span>.</h3><p>Trying searching something else.</p></li>');
+    var searchedFor = $('input').val();
+    $yelpResults.append('<li><h3>Oh no! We can\'t seem to find anything for <span>' + searchedFor + '</span>.</h3><p>Try searching something else.</p></li>');
 
-      //	Use google map api to clear the markers on the map
-      google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
-    }
+    //	Use google map api to clear the markers on the map
+    google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
   }
+}
 
-  initMap();
-  Yelp('60622', 'Tattoo');
+initMap();
+Yelp('60622', 'Tattoo');
