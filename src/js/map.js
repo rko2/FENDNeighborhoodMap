@@ -73,10 +73,10 @@ function Yelp(around, searchfor) {
   var auth = {
     consumerKey: "PDTwNISGHOMT--mxGVuM9w",
     consumerSecret: "id_cBoLI1WywV1Pgechh_o8qnbE",
-    accessToken: "ozDJ035xxr_DrlmWsYJ3s_RDzrDhmgj3",
+    accessToken: "56ehWaYgsMGVbzmfQQb90OKbAOxhYbPQ",
     // This example is a proof of concept, for how to use the Yelp v2 API with javascript.
     // You wouldn't actually want to expose your access token secret like this in a real application.
-    accessTokenSecret: "J7F6MQop0W4yyIcKrM1b7o71A3w",
+    accessTokenSecret: "8T_r9zF3EV3WH65VIiaknZB34qg",
     serviceProvider: {
       signatureMethod: "HMAC-SHA1"
     }
@@ -177,4 +177,4 @@ function listdisplay(data) {
   }
 
   initMap();
-  Yelp('60622', 'Tattoo Shops');
+  Yelp('60622', 'Tattoo Shop');
