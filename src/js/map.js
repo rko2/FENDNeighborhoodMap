@@ -1,7 +1,6 @@
 // Initialize the map.
 
 var map;
-var service;
 var allmarkers = [];
 
 function initMap() {
@@ -19,6 +18,55 @@ function initMap() {
 // Create markers to put on the map.
 function googleMarkers(place) {
   var infowindow = new google.maps.InfoWindow();
+  function makeinfowindow(m) {
+    var windowContent = '<div>';
+    windowContent += '<h4>' + m.title + '</h4>';
+    windowContent += '<p>' + m.ph + '</p>';
+    windowContent += '<p><img src="' + m.snipimg + '">' + m.sniptext + '</p>';
+    windowContent += '</div>';
+
+    // Set info window content.
+    infowindow.setContent(String(windowContent));
+    infowindow.open(map, m);
+  }
+  function deleteMarkers() {
+    for (var i = 0; i < allmarkers.length; i++) {
+      allmarkers[i].setMap(null);
+    }
+    allmarkers = [];
+  }
+
+  if (allmarkers.length > 0) {
+    deleteMarkers();
+  }
+
+  for (var i = 0; i < place.length; i++) {
+
+    var position = new google.maps.LatLng(place[i][2], place[i][3]);
+
+    var mrkr = new google.maps.Marker({
+      position: position,
+      map: map,
+      title: place[i][0],
+      phone: place[i][2],
+      sniptext: place[i][5],
+      snipimg: place[i][4]
+    });
+
+    allmarkers.push(mrkr);
+
+    google.maps.event.addListener(mrkr, 'mouseover', (function(m, i) {
+      return function() {
+        makeinfowindow(m);
+      }
+    })(mrkr, i));
+
+    google.maps.event.addListener(mrkr, 'click', (function(m, i) {
+      return function() {
+        makeinfowindow(m);
+      }
+    })(mrkr, i));
+  }
 }
 
 function Yelp(around, searchfor) {
@@ -117,14 +165,14 @@ function listdisplay(data) {
       yelpResults.append(listing);
 
       // Place markers on map with Google Maps.
-      google.maps.event.addDomListener(window, 'load', addGoogleMapsMarkers(markers));
+      google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
     }
   } else {
       var searchedFor = $('input').val();
       $yelpResults.append('<li><h3>Oh no! We can\'t seem to find anything for <span>' + searchedFor + '</span>.</h3><p>Trying searching something else.</p></li>');
 
       //	Use google map api to clear the markers on the map
-      google.maps.event.addDomListener(window, 'load', addGoogleMapsMarkers(markers));
+      google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
     }
   }
 
