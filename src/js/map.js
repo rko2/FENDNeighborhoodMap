@@ -18,6 +18,7 @@ function initMap() {
 // Create markers to put on the map.
 function googleMarkers(place) {
   var infowindow = new google.maps.InfoWindow();
+  console.log(place);
 
   function makeinfowindow(m) {
     var windowContent = '<div>';
@@ -131,6 +132,7 @@ function listdisplay(data) {
   var results = data.businesses;
   var markers = [];
   var listing = '';
+  console.log(results);
 
   yelpResults.empty();
   if (results.length > 0) {
@@ -148,16 +150,9 @@ function listdisplay(data) {
         sniptext = business.snippet_text,
         snipimg = business.snippet_img_url,
         loc = business.location.display_address;
-      var makelist = '<li><div>';
-      makelist += '<img src="' + img + '" height=100 width=100>';
-      makelist += '<img src="' + rating + '"></div>';
-      makelist += '<h3>' + name + '</h3>';
-      makelist += '<p><span>' + loc + '</span></p>';
-      makelist += '<p>' + phone + '</p>';
-      makelist += '<a href="' + url + '"> Yelp!</a>';
-      makelist += '</div></li>';
-
-      listing += makelist;
+      listing = '<li><div><img src="' + img + '" height=100 width=100><img src="' + rating + '"></div>\
+      <h3>' + name + '</h3><p><span>' + loc + '</span></p>\
+      <p>' + phone + '</p><a href="' + url + '"> Yelp!</a></li>';
 
       // Create the individual marker.
       var marker = [name, phone, lat, long, sniptext, snipimg];
@@ -167,11 +162,11 @@ function listdisplay(data) {
 
       // Add results to the list.
       yelpResults.append(listing);
-      listing = '';
-
-      // Place markers on map with Google Maps.
-      google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
     }
+
+    // Place markers on map with Google Maps.
+    google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
+
   } else {
     var searchedFor = $('input').val();
     $yelpResults.append('<li><h3>Oh no! We can\'t seem to find anything for <span>' + searchedFor + '</span>.</h3><p>Try searching something else.</p></li>');
