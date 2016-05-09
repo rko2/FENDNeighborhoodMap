@@ -172,8 +172,11 @@ function listdisplay(data) {
     google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
   }
   var li = $("li");
-  li.click(function() {
+  li.mouseover(function() {
     $(this).addClass("selected");
+  })
+  li.mouseout(function() {
+    $(this).removeClass("selected");
   })
 }
 
