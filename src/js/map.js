@@ -149,7 +149,7 @@ function listdisplay(data) {
         sniptext = business.snippet_text,
         snipimg = business.snippet_image_url,
         loc = business.location.display_address;
-      listing = '<li><a href="' + url + '">' + name + '</a></li><img src="' + rating + '">';
+      listing = '<li><a href="' + url + '">' + name + '</a>' + " " + '<img src="' + rating + '"></li><br>';
 
       // Create the individual marker.
       var marker = [name, phone, lat, long, sniptext, snipimg];
@@ -171,6 +171,10 @@ function listdisplay(data) {
     //	Use google map api to clear the markers on the map
     google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
   }
+  var li = $("li");
+  li.click(function() {
+    $(this).addClass("selected");
+  })
 }
 
 initMap();
