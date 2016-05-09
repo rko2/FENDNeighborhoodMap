@@ -8,7 +8,7 @@ function initMap() {
   var WickerPark = new google.maps.LatLng(41.908730, -87.679385);
 
   // Create the map.
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: WickerPark,
     zoom: 15,
     disableDoubleClickZoom: true
@@ -16,15 +16,14 @@ function initMap() {
 }
 
 // Create markers to put on the map.
-function googleMarkers(place) {
+function googleMarkers(places) {
   var infowindow = new google.maps.InfoWindow();
-  console.log(place);
 
   function makeinfowindow(m) {
-    var windowContent = '<div>';
-    windowContent += '<h4>' + m.title + '</h4>';
-    windowContent += '<p>' + m.ph + '</p>';
-    windowContent += '<p><img src="' + m.snipimg + '">' + m.sniptext + '</p>';
+    var windowContent = '<div class="infowindow">';
+    windowContent += '<div class="topinfo>"<h4>' + m.title + '</h4>';
+    windowContent += '<p>' + m.phone + '</p></div>';
+    windowContent += '<div class="snippet"><img src="' + m.snipimg + '"><p>' + m.sniptext + '</p></div>';
     windowContent += '</div>';
 
     // Set info window content.
@@ -43,17 +42,18 @@ function googleMarkers(place) {
     deleteMarkers();
   }
 
-  for (var i = 0; i < place.length; i++) {
+  for (var i = 0; i < places.length; i++) {
 
-    var position = new google.maps.LatLng(place[i][2], place[i][3]);
+    var position = new google.maps.LatLng(places[i][2], places[i][3]);
 
     var mrkr = new google.maps.Marker({
       position: position,
       map: map,
-      title: place[i][0],
-      phone: place[i][2],
-      sniptext: place[i][5],
-      snipimg: place[i][4]
+      title: places[i][0],
+      phone: places[i][1],
+      sniptext: places[i][4],
+      snipimg: places[i][5],
+      visible: true
     });
 
     allmarkers.push(mrkr);
@@ -132,7 +132,6 @@ function listdisplay(data) {
   var results = data.businesses;
   var markers = [];
   var listing = '';
-  console.log(results);
 
   yelpResults.empty();
   if (results.length > 0) {
@@ -148,10 +147,10 @@ function listdisplay(data) {
         lat = business.location.coordinate.latitude,
         long = business.location.coordinate.longitude,
         sniptext = business.snippet_text,
-        snipimg = business.snippet_img_url,
+        snipimg = business.snippet_image_url,
         loc = business.location.display_address;
-      listing = '<li><div><img src="' + img + '" height=100 width=100><img src="' + rating + '"></div>\
-      <h3>' + name + '</h3><p><span>' + loc + '</span></p>\
+      listing = '<li><div><img src="' + img + '" height=100 width=100></div>\
+      <img src="' + rating + '"><h3>' + name + '</h3><p><span>' + loc + '</span></p>\
       <p>' + phone + '</p><a href="' + url + '"> Yelp!</a></li>';
 
       // Create the individual marker.
@@ -177,4 +176,4 @@ function listdisplay(data) {
 }
 
 initMap();
-Yelp('60622', 'Tattoo');
+Yelp('60622', 'Bars');
