@@ -2,6 +2,7 @@
 
 var map;
 var allmarkers = [];
+var infowindow = new google.maps.InfoWindow();
 
 function initMap() {
   // Set default center.
@@ -15,10 +16,6 @@ function initMap() {
   });
 }
 
-// Create markers to put on the map.
-function googleMarkers(places) {
-  var infowindow = new google.maps.InfoWindow();
-
   function makeinfowindow(m) {
     var windowContent = '<div class="infowindow">';
     windowContent += '<div class="topinfo>"<h4>' + m.title + '</h4>';
@@ -30,6 +27,9 @@ function googleMarkers(places) {
     infowindow.setContent(String(windowContent));
     infowindow.open(map, m);
   }
+
+// Create markers to put on the map.
+function googleMarkers(places) {
 
   function deleteMarkers() {
     for (var i = 0; i < allmarkers.length; i++) {
@@ -56,6 +56,10 @@ function googleMarkers(places) {
       visible: true
     });
 
+    mrkr.set("id", i);
+    var val = mrkr.get("id");
+    console.log(val);
+
     allmarkers.push(mrkr);
 
     google.maps.event.addListener(mrkr, 'mouseover', (function(m, i) {
@@ -70,6 +74,15 @@ function googleMarkers(places) {
       };
     })(mrkr, i));
   }
+      var li = $("li");
+      li.mouseover(function() {
+        $(this).addClass("selected");
+        var pos = $(this).index();
+        makeinfowindow(allmarkers[pos]);
+      })
+      li.mouseout(function() {
+        $(this).removeClass("selected");
+      })
 }
 
 function Yelp(around, searchfor) {
@@ -149,11 +162,11 @@ function listdisplay(data) {
         sniptext = business.snippet_text,
         snipimg = business.snippet_image_url,
         loc = business.location.display_address;
-      listing = '<li><a href="' + url + '">' + name + '</a>' + " " + '<img src="' + rating + '"></li><br>';
+      listing = '<li id="list' + i + '"><a href="' + url + '">' + name + '</a>' + " " + '<img src="' + rating + '"></li><br>';
+
 
       // Create the individual marker.
       var marker = [name, phone, lat, long, sniptext, snipimg];
-
       // Push individual markers into array.
       markers.push(marker);
 
@@ -171,13 +184,6 @@ function listdisplay(data) {
     //	Use google map api to clear the markers on the map
     google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
   }
-  var li = $("li");
-  li.mouseover(function() {
-    $(this).addClass("selected");
-  })
-  li.mouseout(function() {
-    $(this).removeClass("selected");
-  })
 }
 
 initMap();
