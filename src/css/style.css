@@ -4,10 +4,6 @@ html, body {
   margin: 0;
 }
 
-body {
-  position: relative;
-}
-
 #map {
   height: 100vh;
   margin: 0;
@@ -22,12 +18,26 @@ body {
   border: solid black;
   border-width: 1px;
   background-color: #fffcf0;
-  max-width: 12%;
+  width: 15%;
+  height: 25vh;
 }
 
 .results {
   position: fixed;
   overflow-y: auto;
-  max-height: 100vh;
+  height: 80vh;
   overflow-x: hidden;
+}
+
+.infowindow {
+  max-width: 20vw;
+}
+
+.topinfo {
+  padding: 0;
+}
+
+.snippet {
+  border-top: 1px solid grey;
+  padding-top: 5px;
 }
