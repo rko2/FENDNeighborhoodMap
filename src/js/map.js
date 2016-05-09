@@ -56,10 +56,6 @@ function googleMarkers(places) {
       visible: true
     });
 
-    mrkr.set("id", i);
-    var val = mrkr.get("id");
-    console.log(val);
-
     allmarkers.push(mrkr);
 
     google.maps.event.addListener(mrkr, 'mouseover', (function(m, i) {
@@ -77,7 +73,7 @@ function googleMarkers(places) {
       var li = $("li");
       li.mouseover(function() {
         $(this).addClass("selected");
-        var pos = $(this).index();
+        var pos = $("li").index(this);
         makeinfowindow(allmarkers[pos]);
       })
       li.mouseout(function() {
@@ -162,7 +158,7 @@ function listdisplay(data) {
         sniptext = business.snippet_text,
         snipimg = business.snippet_image_url,
         loc = business.location.display_address;
-      listing = '<li id="list' + i + '"><a href="' + url + '">' + name + '</a>' + " " + '<img src="' + rating + '"></li><br>';
+      listing = '<li id="list"><a href="' + url + '">' + name + '</a>' + " " + '<img src="' + rating + '"></li><br>';
 
 
       // Create the individual marker.
