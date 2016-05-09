@@ -3,12 +3,23 @@ html, body {
   width: 100vw;
   margin: 0;
 }
-
+@media (max-width: 600px) {
+  .mobile {
+    display: none
+  }
+  .search {
+    width: 50%;
+  }
+}
+@media (min-width: 601px) {
+  .search {
+    width: 15%;
+  }
+}
 #map {
   height: 100vh;
   margin: 0;
 }
-
 .search {
   position: fixed;
   padding: 1%;
@@ -18,30 +29,24 @@ html, body {
   border: solid black;
   border-width: 1px;
   background-color: #fffcf0;
-  width: 15%;
   height: 25vh;
 }
-
 .results {
   position: fixed;
   overflow-y: auto;
   height: 80vh;
   overflow-x: hidden;
 }
-
 .infowindow {
   max-width: 20vw;
 }
-
 .topinfo {
   padding: 0;
 }
-
 .snippet {
   border-top: 1px solid grey;
   padding-top: 5px;
 }
-
 .selected {
   background-color: grey;
 }

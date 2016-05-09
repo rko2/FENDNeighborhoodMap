@@ -10,4 +10,8 @@ var ViewModel = function() {
   }
 }
 
+$('#displaybutton').click(function() {
+  $('.results').toggleClass('mobile');
+})
+
 ko.applyBindings(new ViewModel());

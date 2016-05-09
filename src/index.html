@@ -11,10 +11,11 @@
 <body>
   <div class="search">
     <form data-bind="submit: updateResults">
-      <input type="text" data-bind="value: Term"><br><br>
+      <input type="text" data-bind="value: Term"><br>
+      <button id="displaybutton" type="button">Toggle Display</button><br>
       <button type="button" data-bind="click: updateResults">Search with Yelp!</button>
     </form>
-    <ul class="search results"></ul>
+    <ul class="search results mobile"></ul>
   </div>
   <div id="map"></div>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBecyRkkN-0rCzps3UmZx4NKEr3g4_5tfs&libraries=places"></script>
