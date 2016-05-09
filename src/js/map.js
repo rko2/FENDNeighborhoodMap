@@ -149,9 +149,7 @@ function listdisplay(data) {
         sniptext = business.snippet_text,
         snipimg = business.snippet_image_url,
         loc = business.location.display_address;
-      listing = '<li><div><img src="' + img + '" height=100 width=100></div>\
-      <img src="' + rating + '"><h3>' + name + '</h3><p><span>' + loc + '</span></p>\
-      <p>' + phone + '</p><a href="' + url + '"> Yelp!</a></li>';
+      listing = '<li><a href="' + url + '">' + name + '</a></li><img src="' + rating + '">';
 
       // Create the individual marker.
       var marker = [name, phone, lat, long, sniptext, snipimg];
