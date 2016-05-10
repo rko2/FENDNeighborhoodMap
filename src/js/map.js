@@ -130,12 +130,14 @@ function yelpajax(url, yelpdata) {
     'global': true,
     'cache' : true,
     'jsonpCallback': 'cb',
-    'timeout' : 3500,
+    'timeout' : 5000,
     'success': function(data) {
       listdisplay(data);
     },
-    'error' : function(e) {
-      alert("Looks like something didn't work out with the Yelp! search.");
+    'error' : function(x, t, m) {
+      if (t==='timeout') {
+        alert("Looks like something didn't work out with the Yelp! search.");
+      }
     }
   });
 }
