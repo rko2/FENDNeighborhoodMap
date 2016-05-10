@@ -1,0 +1,1 @@
+var ViewModel=function(){var a=this;this.Term=ko.observable("Bars"),this.updateResults=function(b){ko.computed(function(){Yelp("60622",a.Term())},a)}};$("#displaybutton").click(function(){$(".results").toggleClass("mobile")}),ko.applyBindings(new ViewModel);
