@@ -1,19 +1,19 @@
-// Initialize the map.
-
 var map;
 var allmarkers = [];
 var infowindow = new google.maps.InfoWindow();
-
+// Initialize the map.
 function initMap(data) {
   // Use Google Maps geocode service to determine center dynamically.
   var geocoder = new google.maps.Geocoder();
-  geocoder.geocode( { 'address': data}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
+  geocoder.geocode({
+    'address': data
+  }, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+    } else {
+      alert("Geocode was not successful for the following reason: " + status);
+    }
+  });
 
   // Create the map.
   map = new google.maps.Map(document.getElementById('map'), {
@@ -22,18 +22,18 @@ function initMap(data) {
   });
 }
 
-  function makeinfowindow(m) {
-    // Set the content for each info window.
-    var windowContent = '<div class="infowindow">';
-    windowContent += '<div class="topinfo>"<h4>' + m.title + '</h4>';
-    windowContent += '<p>' + m.phone + '</p></div>';
-    windowContent += '<div class="snippet"><img src="' + m.snipimg + '"><p>' + m.sniptext + '</p></div>';
-    windowContent += '</div>';
+function makeinfowindow(m) {
+  // Set the content for each info window.
+  var windowContent = '<div class="infowindow">';
+  windowContent += '<div class="topinfo>"<h4>' + m.title + '</h4>';
+  windowContent += '<p>' + m.phone + '</p></div>';
+  windowContent += '<div class="snippet"><img src="' + m.snipimg + '"><p>' + m.sniptext + '</p></div>';
+  windowContent += '</div>';
 
-    // Set info window content.
-    infowindow.setContent(String(windowContent));
-    infowindow.open(map, m);
-  }
+  // Set info window content.
+  infowindow.setContent(String(windowContent));
+  infowindow.open(map, m);
+}
 
 // Create markers to put on the map.
 function googleMarkers(places) {
@@ -78,15 +78,15 @@ function googleMarkers(places) {
     })(mrkr, i));
   }
   // Use event listeners to toggle highlight class when list item is moused over, and display corresponding info window.
-      var li = $("li");
-      li.mouseover(function() {
-        $(this).addClass("selected");
-        var pos = $("li").index(this);
-        makeinfowindow(allmarkers[pos]);
-      })
-      li.mouseout(function() {
-        $(this).removeClass("selected");
-      })
+  var li = $("li");
+  li.mouseover(function() {
+    $(this).addClass("selected");
+    var pos = $("li").index(this);
+    makeinfowindow(allmarkers[pos]);
+  })
+  li.mouseout(function() {
+    $(this).removeClass("selected");
+  })
 }
 
 function Yelp(around, searchfor) {
@@ -136,15 +136,15 @@ function yelpajax(url, yelpdata) {
     'data': yelpdata,
     'dataType': 'jsonp',
     'global': true,
-    'cache' : true,
+    'cache': true,
     'jsonpCallback': 'cb',
-    'timeout' : 5000,
+    'timeout': 5000,
     'success': function(data) {
       listdisplay(data);
     },
     // Implement error handling using timeout for jsonp.
-    'error' : function(x, t, m) {
-      if (t==='timeout') {
+    'error': function(x, t, m) {
+      if (t === 'timeout') {
         alert("Looks like something didn't work out with the Yelp! search.");
       }
     }

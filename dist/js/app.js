@@ -1,1 +1,1 @@
-var ViewModel=function(){var a=this;this.Term=ko.observable("Bars"),this.updateResults=function(b){ko.computed(function(){Yelp("60622",a.Term())},a)}};$("#displaybutton").click(function(){$(".results").toggleClass("mobile")}),ko.applyBindings(new ViewModel);
+var ViewModel=function(){var a=this;this.Term=ko.observable("Bars"),this.area=ko.observable("Wicker Park"),this.updateResults=function(b){ko.computed(function(){initMap(a.area()),Yelp(a.area(),a.Term())},a)}};$("#displaybutton").click(function(){$(".results").toggleClass("mobile")}),ko.applyBindings(new ViewModel);
