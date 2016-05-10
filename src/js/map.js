@@ -4,19 +4,26 @@ var map;
 var allmarkers = [];
 var infowindow = new google.maps.InfoWindow();
 
-function initMap() {
-  // Set default center.
-  var WickerPark = new google.maps.LatLng(41.908730, -87.679385);
+function initMap(data) {
+  // Use Google Maps geocode service to determine center dynamically.
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode( { 'address': data}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
 
   // Create the map.
   map = new google.maps.Map(document.getElementById('map'), {
-    center: WickerPark,
     zoom: 15,
     disableDoubleClickZoom: true
   });
 }
 
   function makeinfowindow(m) {
+    // Set the content for each info window.
     var windowContent = '<div class="infowindow">';
     windowContent += '<div class="topinfo>"<h4>' + m.title + '</h4>';
     windowContent += '<p>' + m.phone + '</p></div>';
@@ -30,7 +37,7 @@ function initMap() {
 
 // Create markers to put on the map.
 function googleMarkers(places) {
-
+  // Clear markers before creating new ones.
   function deleteMarkers() {
     for (var i = 0; i < allmarkers.length; i++) {
       allmarkers[i].setMap(null);
@@ -43,7 +50,7 @@ function googleMarkers(places) {
   }
 
   for (var i = 0; i < places.length; i++) {
-
+    // Set marker parameters using function input.
     var position = new google.maps.LatLng(places[i][2], places[i][3]);
 
     var mrkr = new google.maps.Marker({
@@ -57,7 +64,7 @@ function googleMarkers(places) {
     });
 
     allmarkers.push(mrkr);
-
+    // Use event listeners to display info window when marker is clicked or moused over.
     google.maps.event.addListener(mrkr, 'mouseover', (function(m, i) {
       return function() {
         makeinfowindow(m);
@@ -70,6 +77,7 @@ function googleMarkers(places) {
       };
     })(mrkr, i));
   }
+  // Use event listeners to toggle highlight class when list item is moused over, and display corresponding info window.
       var li = $("li");
       li.mouseover(function() {
         $(this).addClass("selected");
@@ -164,7 +172,7 @@ function listdisplay(data) {
         sniptext = business.snippet_text,
         snipimg = business.snippet_image_url,
         loc = business.location.display_address;
-      listing = '<li id="list"><a href="' + url + '">' + name + '</a>' + " " + '<img src="' + rating + '"></li><br>';
+      listing = '<li id="list"><a href="' + url + '" target="_blank">' + name + '</a>' + " " + '<img src="' + rating + '"></li><br>';
 
 
       // Create the individual marker.
@@ -188,5 +196,5 @@ function listdisplay(data) {
   }
 }
 
-initMap();
-Yelp('60622', 'Bars');
+initMap('Wicker Park');
+Yelp('Wicker Park', 'Bars');
