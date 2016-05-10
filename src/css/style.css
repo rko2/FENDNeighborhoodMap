@@ -11,11 +11,6 @@ html, body {
     width: 50%;
   }
 }
-@media (min-width: 601px) {
-  .search {
-    width: 15%;
-  }
-}
 #map {
   height: 100vh;
   margin: 0;
@@ -30,10 +25,12 @@ html, body {
   border-width: 1px;
   background-color: #fffcf0;
   max-height: 25vh;
+  width: 15%;
 }
 .results {
   position: fixed;
   overflow-y: auto;
+  max-height: 80vh;
   height: 80vh;
   overflow-x: hidden;
 }
