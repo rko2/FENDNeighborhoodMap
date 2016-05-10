@@ -9,7 +9,7 @@ module.exports = function(grunt) {
           'dist/js/map.js' : 'src/js/map.js'
         }
       }
-    },
+    }
   });
 
   grunt.registerTask('default', [
