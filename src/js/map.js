@@ -142,6 +142,7 @@ function yelpajax(url, yelpdata) {
     'success': function(data) {
       listdisplay(data);
     },
+    // Implement error handling using timeout for jsonp.
     'error' : function(x, t, m) {
       if (t==='timeout') {
         alert("Looks like something didn't work out with the Yelp! search.");
@@ -188,8 +189,9 @@ function listdisplay(data) {
     google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
 
   } else {
+    // If there are somehow no hits (so not due to error), display this in result listing.
     var searchedFor = $('input').val();
-    $yelpResults.append('<li><h3>Oh no! We can\'t seem to find anything for <span>' + searchedFor + '</span>.</h3><p>Try something else.</p></li>');
+    yelpResults.append('<li><h3>Oh no! We can\'t seem to find anything for <span>' + searchedFor + '</span>.</h3><p>Try something else.</p></li>');
 
     //	Use google map api to clear the markers on the map
     google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
