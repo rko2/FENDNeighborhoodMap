@@ -23,14 +23,13 @@ html, body {
 .search {
   position: fixed;
   padding: 1%;
-  padding-bottom: 0;
   z-index: 99;
   top: auto;
   right: 0;
   border: solid black;
   border-width: 1px;
   background-color: #fffcf0;
-  height: 25vh;
+  max-height: 25vh;
 }
 .results {
   position: fixed;
