@@ -79,6 +79,10 @@ function googleMarkers(places) {
   }
   // Use event listeners to toggle highlight class when list item is moused over, and display corresponding info window.
   var li = $("li");
+  li.click(function() {
+    var pos = $("li").index(this);
+    bounce(allmarkers[pos]);
+  })
   li.mouseover(function() {
     $(this).addClass("selected");
     var pos = $("li").index(this);
@@ -87,6 +91,14 @@ function googleMarkers(places) {
   li.mouseout(function() {
     $(this).removeClass("selected");
   })
+}
+
+function bounce(bouncer) {
+  if (bouncer.getAnimation() !== null) {
+    bouncer.setAnimation(null);
+  } else {
+    bouncer.setAnimation(google.maps.Animation.BOUNCE);
+  }
 }
 
 function Yelp(around, searchfor) {
