@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neighborhood Map</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="search">
+    <form data-bind="submit: updateResults">
+      <input type="text" data-bind="value: Term"><br>
+      <button id="displaybutton" type="button">Toggle Display</button><br>
+      <button type="button" data-bind="click: updateResults">Search with Yelp!</button>
+    </form>
+    <ul class="search results mobile"></ul>
+  </div>
+  <div id="map"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBecyRkkN-0rCzps3UmZx4NKEr3g4_5tfs&libraries=places"></script>
+  <script src="js/lib/knockout-3.4.0.js"></script>
+  <script src="js/lib/jquery-1.12.3.js"></script>
+  <script src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script>
+  <script src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

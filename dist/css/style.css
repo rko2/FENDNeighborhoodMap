@@ -1,0 +1,48 @@
+html, body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .mobile {
+    display: none
+  }
+  .search {
+    width: 50%;
+  }
+}
+#map {
+  height: 100vh;
+  margin: 0;
+}
+.search {
+  position: fixed;
+  padding: 1%;
+  z-index: 99;
+  top: auto;
+  right: 0;
+  border: solid black;
+  border-width: 1px;
+  background-color: #fffcf0;
+  max-height: 25vh;
+  width: 15%;
+}
+.results {
+  position: fixed;
+  overflow-y: auto;
+  max-height: 80vh;
+  overflow-x: hidden;
+}
+.infowindow {
+  max-width: 20vw;
+}
+.topinfo {
+  padding: 0;
+}
+.snippet {
+  border-top: 1px solid grey;
+  padding-top: 5px;
+}
+.selected {
+  background-color: grey;
+}
