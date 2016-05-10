@@ -31,7 +31,6 @@ html, body {
   position: fixed;
   overflow-y: auto;
   max-height: 80vh;
-  height: 80vh;
   overflow-x: hidden;
 }
 .infowindow {

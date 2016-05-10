@@ -130,8 +130,12 @@ function yelpajax(url, yelpdata) {
     'global': true,
     'cache' : true,
     'jsonpCallback': 'cb',
+    'timeout' : 3500,
     'success': function(data) {
       listdisplay(data);
+    },
+    'error' : function(e) {
+      alert("Looks like something didn't work out with the Yelp! search.");
     }
   });
 }
@@ -175,7 +179,7 @@ function listdisplay(data) {
 
   } else {
     var searchedFor = $('input').val();
-    $yelpResults.append('<li><h3>Oh no! We can\'t seem to find anything for <span>' + searchedFor + '</span>.</h3><p>Try searching something else.</p></li>');
+    $yelpResults.append('<li><h3>Oh no! We can\'t seem to find anything for <span>' + searchedFor + '</span>.</h3><p>Try something else.</p></li>');
 
     //	Use google map api to clear the markers on the map
     google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
