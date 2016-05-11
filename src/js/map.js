@@ -64,8 +64,7 @@ function googleMarkers(places) {
     });
 
     allmarkers.push(mrkr);
-    // Use event listeners to display info window when marker is clicked or moused over.
-
+    // Use event listener to display info window when marker is clicked.
     google.maps.event.addListener(mrkr, 'click', (function(m, i) {
       return function() {
         makeinfowindow(m);
