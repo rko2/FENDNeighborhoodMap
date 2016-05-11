@@ -79,17 +79,17 @@ function googleMarkers(places) {
   li.click(function() {
     var pos = $("li").index(this);
     bounce(allmarkers[pos]);
-  })
+  });
   // Highlight moused-over list item via class change.
   li.mouseover(function() {
     $(this).addClass("selected");
     var pos = $("li").index(this);
     makeinfowindow(allmarkers[pos]);
-  })
+  });
   // Un-highlight list item when mouse stops hovering.
   li.mouseout(function() {
     $(this).removeClass("selected");
-  })
+  });
 }
 // This function animates google maps markers.
 function bounce(bouncer) {
@@ -140,7 +140,7 @@ function Yelp(around, searchfor) {
   var parameterMap = OAuth.getParameterMap(message.parameters);
   yelpajax(message.action, parameterMap);
 }
-
+// Yelp ajax request.
 function yelpajax(url, yelpdata) {
   $.ajax({
     'url': url,
@@ -161,7 +161,7 @@ function yelpajax(url, yelpdata) {
     }
   });
 }
-
+// Take returned data and display it on list.
 function listdisplay(data) {
   var yelpResults = $('.results');
   var results = data.businesses;

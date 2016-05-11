@@ -8,12 +8,12 @@ var ViewModel = function() {
     ko.computed(function() {
       initMap(self.area());
       Yelp(self.area(), self.Term());
-    }, self)
-  }
-}
+    }, self);
+  };
+};
 
 $('#displaybutton').click(function() {
   $('.results').toggleClass('mobile');
-})
+});
 
 ko.applyBindings(new ViewModel());
