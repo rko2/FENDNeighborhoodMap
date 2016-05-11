@@ -1,8 +1,8 @@
 var map;
-var allmarkers = [];
-var infowindow = new google.maps.InfoWindow();
+var allMarkers = [];
+var infoWindow;
 // Initialize the map.
-function initMap(data) {
+var initMap = function(data) {
   // Use Google Maps geocode service to determine center dynamically.
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode({
@@ -22,30 +22,31 @@ function initMap(data) {
   });
 }
 
-function makeinfowindow(m) {
+var makeInfoWindow = function(m) {
   // Set the content for each info window.
-  var windowContent = '<div class="infowindow">';
-  windowContent += '<div class="topinfo>"<h4>' + m.title + '</h4>';
+  var windowContent = '<div class="InfoWindow">';
+  windowContent += '<div class="TopInfo>"<h4>' + m.title + '</h4>';
   windowContent += '<p>' + m.phone + '</p></div>';
-  windowContent += '<div class="snippet"><img src="' + m.snipimg + '"><p>' + m.sniptext + '</p></div>';
+  windowContent += '<div class="Snippet"><img src="' + m.snipimg + '"><p>' + m.sniptext + '</p></div>';
   windowContent += '</div>';
+  infoWindow = new google.maps.InfoWindow();
 
   // Set info window content.
-  infowindow.setContent(String(windowContent));
-  infowindow.open(map, m);
+  infoWindow.setContent(String(windowContent));
+  infoWindow.open(map, m);
 }
 
 // Create markers to put on the map.
-function googleMarkers(places) {
+var googleMarkers = function(places) {
   // Clear markers before creating new ones.
   function deleteMarkers() {
-    for (var i = 0; i < allmarkers.length; i++) {
-      allmarkers[i].setMap(null);
+    for (var i = 0; i < allMarkers.length; i++) {
+      allMarkers[i].setMap(null);
     }
-    allmarkers = [];
+    allMarkers = [];
   }
 
-  if (allmarkers.length > 0) {
+  if (allMarkers.length > 0) {
     deleteMarkers();
   }
 
@@ -63,11 +64,11 @@ function googleMarkers(places) {
       visible: true
     });
 
-    allmarkers.push(mrkr);
+    allMarkers.push(mrkr);
     // Use event listener to display info window when marker is clicked.
     google.maps.event.addListener(mrkr, 'click', (function(m, i) {
       return function() {
-        makeinfowindow(m);
+        makeInfoWindow(m);
         bounce(m);
       };
     })(mrkr, i));
@@ -77,29 +78,28 @@ function googleMarkers(places) {
   // Add marker bounce when list items are clicked.
   li.click(function() {
     var pos = $("li").index(this);
-    bounce(allmarkers[pos]);
+    bounce(allMarkers[pos]);
   });
   // Highlight moused-over list item via class change.
   li.mouseover(function() {
-    $(this).addClass("selected");
+    $(this).addClass("Selected");
     var pos = $("li").index(this);
-    makeinfowindow(allmarkers[pos]);
+    makeInfoWindow(allMarkers[pos]);
   });
   // Un-highlight list item when mouse stops hovering.
   li.mouseout(function() {
-    $(this).removeClass("selected");
+    $(this).removeClass("Selected");
   });
 }
 // This function animates google maps markers.
-function bounce(bouncer) {
-  if (bouncer.getAnimation() !== null) {
-    bouncer.setAnimation(null);
-  } else {
-    bouncer.setAnimation(google.maps.Animation.BOUNCE);
+var bounce = function(bouncer) {
+  for (var i = 0; i < allMarkers.length; i++) {
+    allMarkers[i].setAnimation(null);
   }
+  bouncer.setAnimation(google.maps.Animation.BOUNCE);
 }
 
-function Yelp(around, searchfor) {
+var yelp = function(around, searchfor) {
   var auth = {
 
     // This example is a proof of concept, for how to use the Yelp v2 API with javascript.
@@ -137,10 +137,10 @@ function Yelp(around, searchfor) {
   OAuth.SignatureMethod.sign(message, accessor);
 
   var parameterMap = OAuth.getParameterMap(message.parameters);
-  yelpajax(message.action, parameterMap);
+  yelpAjax(message.action, parameterMap);
 }
 // Yelp ajax request.
-function yelpajax(url, yelpdata) {
+var yelpAjax = function(url, yelpdata) {
   $.ajax({
     'url': url,
     'data': yelpdata,
@@ -150,7 +150,11 @@ function yelpajax(url, yelpdata) {
     'jsonpCallback': 'cb',
     'timeout': 5000,
     'success': function(data) {
-      listdisplay(data);
+      var results = data.businesses;
+      ajaxResults([]);
+      for (var i = 0; i < results.length; i++) {
+        ajaxResults.push(results[i]);
+      }
     },
     // Implement error handling using timeout for jsonp.
     'error': function(x, t, m) {
@@ -161,7 +165,7 @@ function yelpajax(url, yelpdata) {
   });
 }
 // Take returned data and display it on list.
-function listdisplay(data) {
+var listDisplay = function(data) {
   var yelpResults = $('.results');
   var results = data.businesses;
   var markers = [];
@@ -207,6 +211,3 @@ function listdisplay(data) {
     google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
   }
 }
-
-initMap('Wicker Park');
-Yelp('Wicker Park', 'Bars');

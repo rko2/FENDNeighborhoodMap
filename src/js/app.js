@@ -1,13 +1,28 @@
-var ViewModel = function() {
+var listResult = function(data) {
+  this.name = ko.observable(data.name),
+  this.img = ko.observable(data.image_url),
+  this.phone = ko.observable(data.display_phone),
+  this.url = ko.observable(data.url),
+  this.rating = ko.observable(data.rating_img_url_small),
+  this.lat = ko.observable(data.location.coordinate.latitude),
+  this.long = ko.observable(data.location.coordinate.longitude),
+  this.sniptext = ko.observable(data.snippet_text),
+  this.snipimg = ko.observable(data.snippet_image_url),
+  this.loc = ko.observable(data.location.display_address);
+}
+
+var ajaxResults = ko.observableArray();
+
+var viewModel = function() {
   var self = this;
   // Use observables to dynamically search using input.
-  this.Term = ko.observable('Bars');
+  this.term = ko.observable('Bars');
   this.area = ko.observable('Wicker Park');
   // Update search results and map based on input.
   this.updateResults = function() {
     ko.computed(function() {
       initMap(self.area());
-      Yelp(self.area(), self.Term());
+      yelp(self.area(), self.term());
     }, self);
   };
 };
@@ -16,4 +31,8 @@ $('#displaybutton').click(function() {
   $('.results').toggleClass('mobile');
 });
 
-ko.applyBindings(new ViewModel());
+var googleSuccess = function() {
+  initMap('Wicker Park');
+  yelp('Wicker Park', 'Bars');
+  ko.applyBindings(new viewModel())
+}
