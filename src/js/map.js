@@ -74,25 +74,29 @@ function googleMarkers(places) {
     google.maps.event.addListener(mrkr, 'click', (function(m, i) {
       return function() {
         makeinfowindow(m);
+        bounce(m);
       };
     })(mrkr, i));
   }
   // Use event listeners to toggle highlight class when list item is moused over, and display corresponding info window.
   var li = $("li");
+  // Add marker bounce when list items are clicked.
   li.click(function() {
     var pos = $("li").index(this);
     bounce(allmarkers[pos]);
   })
+  // Highlight moused-over list item via class change.
   li.mouseover(function() {
     $(this).addClass("selected");
     var pos = $("li").index(this);
     makeinfowindow(allmarkers[pos]);
   })
+  // Un-highlight list item when mouse stops hovering.
   li.mouseout(function() {
     $(this).removeClass("selected");
   })
 }
-
+// This function animates google maps markers.
 function bounce(bouncer) {
   if (bouncer.getAnimation() !== null) {
     bouncer.setAnimation(null);
