@@ -13,6 +13,8 @@
 * Clicking on a name in the list will open up the Yelp page in another tab, and cause the associated marker to bounce.
 * Clicking on a marker will cause that marker to begin bouncing.
 * Clicking on it again will turn the bouncing off.
+* If the Yelp search fails there will be an alert.
+* If the Yelp search succeeds but there are no hits, that will be displayed as well.
 
 ## Other
 * By default, the application searches for bars in Wicker Park, Chicago, IL.
