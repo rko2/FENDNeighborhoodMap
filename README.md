@@ -5,6 +5,7 @@
 * Install grunt (run npm install -g grunt-cli)
 
 ## Using the application
+* To run locally, open index.html in dist.
 * Go to http://rko2.github.io/FENDNeighborhoodMap/dist/ to use the map.
 * On the toggle display button will toggle whether or not the list results appear on screen.
 * The first field is the search term that you want to match against.
