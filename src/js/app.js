@@ -4,7 +4,7 @@ var ViewModel = function() {
   this.Term = ko.observable('Bars');
   this.area = ko.observable('Wicker Park');
   // Update search results and map based on input.
-  this.updateResults = function(searched) {
+  this.updateResults = function() {
     ko.computed(function() {
       initMap(self.area());
       Yelp(self.area(), self.Term());
