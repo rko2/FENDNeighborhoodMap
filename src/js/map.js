@@ -152,8 +152,12 @@ var yelpAjax = function(url, yelpdata) {
     'success': function(data) {
       var results = data.businesses;
       ajaxResults([]);
-      for (var i = 0; i < results.length; i++) {
-        ajaxResults.push(results[i]);
+      if (results.length > 0) {
+        for (var i = 0; i < results.length; i++) {
+          ajaxResults.push(results[i]);
+        }
+      } else {
+        emptyResults(true);
       }
     },
     // Implement error handling using timeout for jsonp.

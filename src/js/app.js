@@ -12,6 +12,7 @@ var listResult = function(data) {
 }
 
 var ajaxResults = ko.observableArray();
+var emptyResults = ko.observable(false);
 
 var viewModel = function() {
   var self = this;

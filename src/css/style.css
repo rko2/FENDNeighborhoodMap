@@ -68,3 +68,8 @@ main {
 .Selected {
   background-color: grey;
 }
+
+
+.NoHits {
+  display: none;
+}
