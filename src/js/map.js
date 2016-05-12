@@ -177,16 +177,6 @@ var listDisplay = function(data) {
     // Iterate through results and create listings.
     for (var i = 0; i < results.length; i++) {
       var business = results[i],
-        name = business.name,
-        img = business.image_url,
-        phone = business.display_phone,
-        url = business.url,
-        rating = business.rating_img_url_small,
-        lat = business.location.coordinate.latitude,
-        long = business.location.coordinate.longitude,
-        sniptext = business.snippet_text,
-        snipimg = business.snippet_image_url,
-        loc = business.location.display_address;
       listing = '<li id="list"><a href="' + url + '" target="_blank">' + name + '</a>' + " " + '<img src="' + rating + '"></li><br>';
 
 
