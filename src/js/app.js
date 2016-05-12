@@ -36,3 +36,11 @@ var googleSuccess = function() {
   yelp('Wicker Park', 'Bars');
   ko.applyBindings(new viewModel())
 }
+
+var googleError = function() {
+  alert("Something went wrong with Google Maps.")
+}
+
+var authError = function() {
+  alert("Something went wrong with Yelp.")
+}
