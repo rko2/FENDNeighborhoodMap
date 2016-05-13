@@ -19,6 +19,13 @@ var viewModel = function() {
   // Use observables to dynamically search using input.
   this.term = ko.observable('Bars');
   this.area = ko.observable('Wicker Park');
+
+  this.highlightOn = function(highlight) {
+    highlight.addClass('Selected');
+  }
+  this.highlightOff = function(highlight) {
+    highlight.removeClass('Selected');
+  }
   // Update search results and map based on input.
   this.updateResults = function() {
     ko.computed(function() {
