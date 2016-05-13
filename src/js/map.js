@@ -154,6 +154,7 @@ var yelpAjax = function(url, yelpdata) {
       ajaxResults([]);
       if (results.length > 0) {
         for (var i = 0; i < results.length; i++) {
+          results[i].highlighted = ko.observable(false);
           ajaxResults.push(results[i]);
         }
       } else {

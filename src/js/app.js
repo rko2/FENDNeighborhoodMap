@@ -20,11 +20,11 @@ var viewModel = function() {
   this.term = ko.observable('Bars');
   this.area = ko.observable('Wicker Park');
 
-  this.highlightOn = function(highlight) {
-    highlight.addClass('Selected');
+  this.highlightOn = function(data) {
+    data.highlighted(true);
   }
-  this.highlightOff = function(highlight) {
-    highlight.removeClass('Selected');
+  this.highlightOff = function(data) {
+    data.highlighted(false);
   }
   // Update search results and map based on input.
   this.updateResults = function() {
