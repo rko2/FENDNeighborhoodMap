@@ -56,6 +56,7 @@ var makeInfoWindowFromList = function(data) {
   // Set info window content.
   infoWindow.setContent(String(windowContent));
   infoWindow.open(map, data.marker);
+  bounce(data.marker);
 }
 
 
