@@ -26,6 +26,9 @@ var viewModel = function() {
   this.highlightOff = function(data) {
     data.highlighted(false);
   }
+  this.openWindow = function(data) {
+    makeInfoWindowFromList(data);
+  }
   // Update search results and map based on input.
   this.updateResults = function() {
     ko.computed(function() {
