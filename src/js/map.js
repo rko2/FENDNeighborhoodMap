@@ -74,8 +74,7 @@ var googleMarkers = function(data) {
     deleteMarkers();
   }
   var results = data.businesses;
-  ajaxResults = [];
-  returned = [];
+  ajaxResults([]);
   if (results.length > 0) {
     markers = [];
     for (var i = 0; i < results.length; i++) {

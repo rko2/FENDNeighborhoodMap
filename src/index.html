@@ -16,9 +16,8 @@
       <input type="text" data-bind="value: area"><br>
       <button type="button" data-bind="click: updateResults">Search with Yelp!</button>
     </form>
-    <input type="text" data-bind="value: query, valueUpdate: 'keyup'">
-    <ul class="Search Results Mobile" data-bind="foreach: results">
-      <li id="list" data-bind="if: results.length > 0"><button data-bind="click: makeInfoWindowFromList">Info</button><a data-bind="attr: { href: url }, text: name, event: { mouseover: $parent.highlightOn, mouseout: $parent.highlightOff }, css: { Selected: highlighted }" target="_blank"></a><br><img data-bind="attr: {src: rating_img_url_small}"></li><br>
+    <ul class="Search Results Mobile" data-bind="foreach: ajaxResults">
+      <li id="list"><button data-bind="click: makeInfoWindowFromList">Info</button><a data-bind="attr: { href: url }, text: name, event: { mouseover: $parent.highlightOn, mouseout: $parent.highlightOff }, css: { Selected: highlighted }" target="_blank"></a><br><img data-bind="attr: {src: rating_img_url_small}"></li><br>
     </ul>
     <!-- ko if: emptyResults -->
       <br><li class="Search Results Mobile"><h3>Oh no! We can't seem to find anything for <span data-bind="text: term"></span> in <span data-bind="text: area"></span>.</h3><p>Try something else.</p></li>'
