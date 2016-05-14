@@ -98,9 +98,6 @@ var googleMarkers = function(data) {
         };
       })(results[i].marker, i));
     }
-  } else {
-    // Toggle empty results display if there are no hits.
-    emptyResults(true);
   }
 }
 // This function animates google maps markers.
