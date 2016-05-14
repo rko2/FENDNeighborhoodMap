@@ -24,19 +24,40 @@ var initMap = function(data) {
   });
 }
 
-var makeInfoWindow = function(m) {
+var makeInfoWindow = function(data) {
+  if (infoWindow) {
+    infoWindow.close();
+  }
   // Set the content for each info window.
   var windowContent = '<div class="InfoWindow">';
-  windowContent += '<div class="TopInfo>"<h4>' + m.title + '</h4>';
-  windowContent += '<p>' + m.phone + '</p></div>';
-  windowContent += '<div class="Snippet"><img src="' + m.snipimg + '"><p>' + m.sniptext + '</p></div>';
+  windowContent += '<div class="TopInfo>"<h4>' + data.title + '</h4>';
+  windowContent += '<p>' + data.phone + '</p></div>';
+  windowContent += '<div class="Snippet"><img src="' + data.snipimg + '"><p>' + data.sniptext + '</p></div>';
   windowContent += '</div>';
   infoWindow = new google.maps.InfoWindow();
 
   // Set info window content.
   infoWindow.setContent(String(windowContent));
-  infoWindow.open(map, m);
+  infoWindow.open(map, data);
 }
+
+var makeInfoWindowFromList = function(data) {
+  if (infoWindow) {
+    infoWindow.close();
+  }
+  // Set the content for each info window.
+  var windowContent = '<div class="InfoWindow">';
+  windowContent += '<div class="TopInfo>"<h4>' + data.name + '</h4>';
+  windowContent += '<p>' + data.display_phone + '</p></div>';
+  windowContent += '<div class="Snippet"><img src="' + data.snippet_image_url + '"><p>' + data.snippet_text + '</p></div>';
+  windowContent += '</div>';
+  infoWindow = new google.maps.InfoWindow();
+
+  // Set info window content.
+  infoWindow.setContent(String(windowContent));
+  infoWindow.open(map, data.marker);
+}
+
 
 // Create markers to put on the map.
 var googleMarkers = function(places) {
@@ -151,11 +172,25 @@ var yelpAjax = function(url, yelpdata) {
         markers = [];
         for (var i = 0; i < results.length; i++) {
           results[i].highlighted = ko.observable(false);
-          marker = [results[i].name, results[i].display_phone, results[i].location.coordinate.latitude, results[i].location.coordinate.longitude, results[i].snippet_text, results[i].snippet_image_url];
-          markers.push(marker);
           ajaxResults.push(results[i]);
+          var position = new google.maps.LatLng(results[i].location.coordinate.latitude, results[i].location.coordinate.longitude);
+          results[i].marker = new google.maps.Marker({
+            position: position,
+            title: results[i].name,
+            phone: results[i].display_phone,
+            snipimg: results[i].snippet_image_url,
+            sniptext: results[i].snippet_text,
+            map: map,
+            visible: true
+          });
+          allMarkers.push(results[i].marker);
+          google.maps.event.addListener(results[i].marker, 'click', (function(m, i) {
+            return function() {
+              makeInfoWindow(m);
+              bounce(m);
+            };
+          })(results[i].marker, i));
         }
-        google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
       } else {
         emptyResults(true);
       }
