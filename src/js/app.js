@@ -19,7 +19,7 @@ var viewModel = function() {
   // Use observables to dynamically search using input.
   this.term = ko.observable('Bars');
   this.area = ko.observable('Wicker Park');
-
+  // Toggle whether or not the list item is highlighted, and whether or not info window appears.
   this.highlightOn = function(data) {
     data.highlighted(true);
   }
