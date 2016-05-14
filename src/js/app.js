@@ -1,11 +1,17 @@
-var ajaxResults = ko.observableArray();
+var ajaxResults = [];
 var emptyResults = ko.observable(false);
 
 var viewModel = function() {
   var self = this;
+  this.results = ko.observableArray([]);
+  for (var i = 0; i < ajaxResults.length; i++) {
+    results.push(ajaxResults[i]);
+  }
+  console.log(self.results.length);
   // Use observables to dynamically search using input.
   this.term = ko.observable('Bars');
   this.area = ko.observable('Wicker Park');
+  this.query = ko.observable('');
   // Toggle whether or not the list item is highlighted, and whether or not info window appears.
   this.highlightOn = function(data) {
     data.highlighted(true);
