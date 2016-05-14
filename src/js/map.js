@@ -1,6 +1,8 @@
 var map;
 var allMarkers = [];
-var infoWindow;
+var infoWindow = null;
+var marker = [];
+var markers = [];
 // Initialize the map.
 var initMap = function(data) {
   // Use Google Maps geocode service to determine center dynamically.
@@ -68,6 +70,9 @@ var googleMarkers = function(places) {
     // Use event listener to display info window when marker is clicked.
     google.maps.event.addListener(mrkr, 'click', (function(m, i) {
       return function() {
+        if (infoWindow) {
+          infoWindow.close();
+        }
         makeInfoWindow(m);
         bounce(m);
       };
@@ -79,16 +84,6 @@ var googleMarkers = function(places) {
   li.click(function() {
     var pos = $("li").index(this);
     bounce(allMarkers[pos]);
-  });
-  // Highlight moused-over list item via class change.
-  li.mouseover(function() {
-    $(this).addClass("Selected");
-    var pos = $("li").index(this);
-    makeInfoWindow(allMarkers[pos]);
-  });
-  // Un-highlight list item when mouse stops hovering.
-  li.mouseout(function() {
-    $(this).removeClass("Selected");
   });
 }
 // This function animates google maps markers.
@@ -153,10 +148,14 @@ var yelpAjax = function(url, yelpdata) {
       var results = data.businesses;
       ajaxResults([]);
       if (results.length > 0) {
+        markers = [];
         for (var i = 0; i < results.length; i++) {
           results[i].highlighted = ko.observable(false);
+          marker = [results[i].name, results[i].display_phone, results[i].location.coordinate.latitude, results[i].location.coordinate.longitude, results[i].snippet_text, results[i].snippet_image_url];
+          markers.push(marker);
           ajaxResults.push(results[i]);
         }
+        google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
       } else {
         emptyResults(true);
       }
