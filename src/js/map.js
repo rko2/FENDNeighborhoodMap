@@ -1,8 +1,6 @@
 var map;
 var allMarkers = [];
 var infoWindow = null;
-var marker = [];
-var markers = [];
 // Initialize the map.
 var initMap = function(data) {
   // Use Google Maps geocode service to determine center dynamically.
@@ -61,7 +59,7 @@ var makeInfoWindowFromList = function(data) {
 
 
 // Create markers to put on the map.
-var googleMarkers = function(places) {
+var googleMarkers = function(data) {
   // Clear markers before creating new ones.
   function deleteMarkers() {
     for (var i = 0; i < allMarkers.length; i++) {
@@ -73,40 +71,34 @@ var googleMarkers = function(places) {
   if (allMarkers.length > 0) {
     deleteMarkers();
   }
-
-  for (var i = 0; i < places.length; i++) {
-    // Set marker parameters using function input.
-    var position = new google.maps.LatLng(places[i][2], places[i][3]);
-
-    var mrkr = new google.maps.Marker({
-      position: position,
-      map: map,
-      title: places[i][0],
-      phone: places[i][1],
-      sniptext: places[i][4],
-      snipimg: places[i][5],
-      visible: true
-    });
-
-    allMarkers.push(mrkr);
-    // Use event listener to display info window when marker is clicked.
-    google.maps.event.addListener(mrkr, 'click', (function(m, i) {
-      return function() {
-        if (infoWindow) {
-          infoWindow.close();
-        }
-        makeInfoWindow(m);
-        bounce(m);
-      };
-    })(mrkr, i));
+  var results = data.businesses;
+  ajaxResults([]);
+  if (results.length > 0) {
+    markers = [];
+    for (var i = 0; i < results.length; i++) {
+      results[i].highlighted = ko.observable(false);
+      ajaxResults.push(results[i]);
+      var position = new google.maps.LatLng(results[i].location.coordinate.latitude, results[i].location.coordinate.longitude);
+      results[i].marker = new google.maps.Marker({
+        position: position,
+        title: results[i].name,
+        phone: results[i].display_phone,
+        snipimg: results[i].snippet_image_url,
+        sniptext: results[i].snippet_text,
+        map: map,
+        visible: true
+      });
+      allMarkers.push(results[i].marker);
+      google.maps.event.addListener(results[i].marker, 'click', (function(m, i) {
+        return function() {
+          makeInfoWindow(m);
+          bounce(m);
+        };
+      })(results[i].marker, i));
+    }
+  } else {
+    emptyResults(true);
   }
-  // Use event listeners to toggle highlight class when list item is moused over, and display corresponding info window.
-  var li = $("li");
-  // Add marker bounce when list items are clicked.
-  li.click(function() {
-    var pos = $("li").index(this);
-    bounce(allMarkers[pos]);
-  });
 }
 // This function animates google maps markers.
 var bounce = function(bouncer) {
@@ -167,34 +159,7 @@ var yelpAjax = function(url, yelpdata) {
     'jsonpCallback': 'cb',
     'timeout': 5000,
     'success': function(data) {
-      var results = data.businesses;
-      ajaxResults([]);
-      if (results.length > 0) {
-        markers = [];
-        for (var i = 0; i < results.length; i++) {
-          results[i].highlighted = ko.observable(false);
-          ajaxResults.push(results[i]);
-          var position = new google.maps.LatLng(results[i].location.coordinate.latitude, results[i].location.coordinate.longitude);
-          results[i].marker = new google.maps.Marker({
-            position: position,
-            title: results[i].name,
-            phone: results[i].display_phone,
-            snipimg: results[i].snippet_image_url,
-            sniptext: results[i].snippet_text,
-            map: map,
-            visible: true
-          });
-          allMarkers.push(results[i].marker);
-          google.maps.event.addListener(results[i].marker, 'click', (function(m, i) {
-            return function() {
-              makeInfoWindow(m);
-              bounce(m);
-            };
-          })(results[i].marker, i));
-        }
-      } else {
-        emptyResults(true);
-      }
+      googleMarkers(data);
     },
     // Implement error handling using timeout for jsonp.
     'error': function(x, t, m) {
