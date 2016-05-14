@@ -22,6 +22,7 @@ var initMap = function(data) {
   });
 }
 
+// Make info windows when called from a marker.
 var makeInfoWindow = function(data) {
   if (infoWindow) {
     infoWindow.close();
@@ -39,6 +40,7 @@ var makeInfoWindow = function(data) {
   infoWindow.open(map, data);
 }
 
+// Make info windows when called from a list item.
 var makeInfoWindowFromList = function(data) {
   if (infoWindow) {
     infoWindow.close();
@@ -97,6 +99,7 @@ var googleMarkers = function(data) {
       })(results[i].marker, i));
     }
   } else {
+    // Toggle empty results display if there are no hits.
     emptyResults(true);
   }
 }
@@ -168,41 +171,4 @@ var yelpAjax = function(url, yelpdata) {
       }
     }
   });
-}
-// Take returned data and display it on list.
-var listDisplay = function(data) {
-  var yelpResults = $('.results');
-  var results = data.businesses;
-  var markers = [];
-  var listing = '';
-
-  yelpResults.empty();
-  if (results.length > 0) {
-
-    // Iterate through results and create listings.
-    for (var i = 0; i < results.length; i++) {
-      var business = results[i],
-      listing = '<li id="list"><a href="' + url + '" target="_blank">' + name + '</a>' + " " + '<img src="' + rating + '"></li><br>';
-
-
-      // Create the individual marker.
-      var marker = [name, phone, lat, long, sniptext, snipimg];
-      // Push individual markers into array.
-      markers.push(marker);
-
-      // Add results to the list.
-      yelpResults.append(listing);
-    }
-
-    // Place markers on map with Google Maps.
-    google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
-
-  } else {
-    // If there are somehow no hits (so not due to error), display this in result listing.
-    var searchedFor = $('input').val();
-    yelpResults.append('<li><h3>Oh no! We can\'t seem to find anything for <span>' + searchedFor + '</span>.</h3><p>Try something else.</p></li>');
-
-    //	Use google map api to clear the markers on the map
-    google.maps.event.addDomListener(window, 'load', googleMarkers(markers));
-  }
 }
