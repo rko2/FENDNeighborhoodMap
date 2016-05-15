@@ -11,18 +11,23 @@
 <body>
   <nav class="Search">
     <form data-bind="submit: updateResults">
-      <button class="DisplayButton" type="button">Toggle Display on Mobile</button><br>
-      <input type="text" data-bind="value: term"><br>
-      <input type="text" data-bind="value: area"><br>
+      <button class="DisplayButton" type="button">Toggle on Mobile</button>
+      <input type="text" data-bind="value: term">
+      <input type="text" data-bind="value: area">
       <button type="button" data-bind="click: updateResults">Search with Yelp!</button>
     </form>
-    <!-- ko if: ajaxResults().length > 0 -->
-    <ul class="Search Results Mobile" data-bind="foreach: ajaxResults">
-      <li id="list"><button data-bind="click: makeInfoWindowFromList">Info</button><a data-bind="attr: { href: url }, text: name, event: { mouseover: $parent.highlightOn, mouseout: $parent.highlightOff }, css: { Selected: highlighted }" target="_blank"></a><br><img data-bind="attr: {src: rating_img_url_small}"></li><br>
+    <form data-bind="submit: filter">
+      <input type="text" data-bind="value: query"><br>
+      <button type="button" data-bind="click: filter">Filter</button>
+      <button type="button" data-bind="click: clearFilter">Reset</button>
+    </form>
+    <!-- ko if: filteredResults().length > 0 -->
+    <ul class="Search Results Mobile" data-bind="foreach: filteredResults">
+      <li><button data-bind="click: $parent.openWindow">Info</button><a data-bind="attr: { href: url }, text: name, event: { mouseover: $parent.highlightOn, mouseout: $parent.highlightOff }, css: { Selected: highlighted }" target="_blank"></a><br><img data-bind="attr: {src: rating_img_url_small}"></li><br>
     </ul>
     <!-- /ko -->
-    <!-- ko if: ajaxResults().length === 0 -->
-      <br><li class="Search Results Mobile"><h3>Oh no! We can't seem to find anything for <span data-bind="text: term"></span> in <span data-bind="text: area"></span>.</h3><p>Try something else.</p></li>'
+    <!-- ko if: filteredResults().length === 0 -->
+      <br><li class="Search Results Mobile"><h3>Oh no! We can't seem to find anything matching those filters in <span data-bind="text: area"></span>.</h3><p>Try something else.</p></li>'
     <!-- /ko -->
   </nav>
   <main class="Map" id="map"></main>

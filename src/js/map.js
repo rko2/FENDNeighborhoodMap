@@ -59,6 +59,28 @@ var makeInfoWindowFromList = function(data) {
   bounce(data.marker);
 }
 
+// Filter ajax results using query.
+var nameMatch = function(data) {
+  if (data) {
+    filteredResults([]);
+    var searchFilter = new RegExp(data);
+    for (var i = 0; i < ajaxResults().length; i++) {
+      if (searchFilter.test(ajaxResults()[i].name)) {
+        console.log(searchFilter.test(ajaxResults()[i].name.toLowerCase()));
+        filteredResults.push(ajaxResults()[i]);
+      }
+    }
+  }
+};
+
+// Reset list to display all initial Yelp results.
+var listReset = function() {
+  filteredResults([]);
+  for (var i = 0; i < ajaxResults().length; i++) {
+    filteredResults.push(ajaxResults()[i]);
+  }
+}
+
 
 // Create markers to put on the map.
 var googleMarkers = function(data) {
@@ -75,11 +97,14 @@ var googleMarkers = function(data) {
   }
   var results = data.businesses;
   ajaxResults([]);
+  filteredResults([]);
   if (results.length > 0) {
     markers = [];
     for (var i = 0; i < results.length; i++) {
       results[i].highlighted = ko.observable(false);
       ajaxResults.push(results[i]);
+      filteredResults.push(results[i]);
+      console.log(ajaxResults()[i].name);
       var position = new google.maps.LatLng(results[i].location.coordinate.latitude, results[i].location.coordinate.longitude);
       results[i].marker = new google.maps.Marker({
         position: position,
