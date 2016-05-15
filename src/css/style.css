@@ -13,14 +13,6 @@ form {
 }
 
 
-
-li {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-
 @media (max-width: 600px) {
   .Mobile {
     display: none
@@ -37,25 +29,30 @@ main {
 }
 
 
+.DisplayButton {
+  margin-bottom: 3px;
+}
+
+
 .Search {
   position: fixed;
+  padding: 1%;
   z-index: 99;
   top: auto;
+  right: 0;
   border: solid black;
   border-width: 1px;
   background-color: #fffcf0;
   max-height: 25vh;
-  width: 18%;
+  width: 15%;
 }
 
 
 .Results {
   position: fixed;
-  padding: 0;
   overflow-y: auto;
   max-height: 80vh;
   overflow-x: hidden;
-  margin-bottom: 0;
 }
 
 
