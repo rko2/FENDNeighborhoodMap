@@ -36,6 +36,7 @@ var viewModel = function() {
   this.clearFilter = function() {
     self.query('');
     listReset();
+    markerReset();
   }
 };
 

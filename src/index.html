@@ -10,8 +10,8 @@
 
 <body>
   <nav class="Search">
+    <button class="DisplayButton" type="button">Toggle on Mobile</button>
     <form data-bind="submit: updateResults">
-      <button class="DisplayButton" type="button">Toggle on Mobile</button>
       <input type="text" data-bind="value: term">
       <input type="text" data-bind="value: area">
       <button type="button" data-bind="click: updateResults">Search with Yelp!</button>

@@ -63,10 +63,14 @@ var makeInfoWindowFromList = function(data) {
 var nameMatch = function(data) {
   if (data) {
     filteredResults([]);
+    for (var j = 0; j < allMarkers.length; j++) {
+      allMarkers[j].setVisible(false);
+    }
     var searchFilter = new RegExp(data);
     for (var i = 0; i < ajaxResults().length; i++) {
       if (searchFilter.test(ajaxResults()[i].name)) {
         console.log(searchFilter.test(ajaxResults()[i].name.toLowerCase()));
+        allMarkers[i].setVisible(true);
         filteredResults.push(ajaxResults()[i]);
       }
     }
@@ -78,6 +82,12 @@ var listReset = function() {
   filteredResults([]);
   for (var i = 0; i < ajaxResults().length; i++) {
     filteredResults.push(ajaxResults()[i]);
+  }
+}
+
+var markerReset = function() {
+  for (var i = 0; i < allMarkers.length; i++) {
+    allMarkers[i].setVisible(true);
   }
 }
 
