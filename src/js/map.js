@@ -59,6 +59,8 @@ var makeInfoWindowFromList = function(data) {
   bounce(data.marker);
 }
 
+var matcher;
+
 // Filter ajax results using query.
 var nameMatch = function(data) {
   if (data) {
@@ -66,10 +68,10 @@ var nameMatch = function(data) {
     for (var j = 0; j < allMarkers.length; j++) {
       allMarkers[j].setVisible(false);
     }
-    var searchFilter = new RegExp(data);
+    var searchFilter = new RegExp(data, 'i');
     for (var i = 0; i < ajaxResults().length; i++) {
-      if (searchFilter.test(ajaxResults()[i].name)) {
-        console.log(searchFilter.test(ajaxResults()[i].name.toLowerCase()));
+      matcher = ajaxResults()[i].name.toLowerCase();
+      if (searchFilter.test(matcher) === true) {
         allMarkers[i].setVisible(true);
         filteredResults.push(ajaxResults()[i]);
       }
