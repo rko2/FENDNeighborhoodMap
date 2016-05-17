@@ -9,7 +9,6 @@ var viewModel = function() {
   this.term = ko.observable('Bars');
   this.area = ko.observable('Wicker Park');
   this.query = ko.observable('');
-  console.log(self.query().toLowerCase());
   // Toggle whether or not the list item is highlighted, and whether or not info window appears.
   this.highlightOn = function(data) {
     data.highlighted(true);
