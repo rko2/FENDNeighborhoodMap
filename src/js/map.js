@@ -20,7 +20,7 @@ var initMap = function(data) {
     zoom: 15,
     disableDoubleClickZoom: true
   });
-}
+};
 
 // Make info windows when called from a marker.
 var makeInfoWindow = function(data) {
@@ -38,7 +38,7 @@ var makeInfoWindow = function(data) {
   // Set info window content.
   infoWindow.setContent(String(windowContent));
   infoWindow.open(map, data);
-}
+};
 
 // Make info windows when called from a list item.
 var makeInfoWindowFromList = function(data) {
@@ -57,7 +57,7 @@ var makeInfoWindowFromList = function(data) {
   infoWindow.setContent(String(windowContent));
   infoWindow.open(map, data.marker);
   bounce(data.marker);
-}
+};
 
 var matcher;
 
@@ -85,13 +85,13 @@ var listReset = function() {
   for (var i = 0; i < ajaxResults().length; i++) {
     filteredResults.push(ajaxResults()[i]);
   }
-}
+};
 
 var markerReset = function() {
   for (var i = 0; i < allMarkers.length; i++) {
     allMarkers[i].setVisible(true);
   }
-}
+};
 
 
 // Create markers to put on the map.
@@ -135,14 +135,14 @@ var googleMarkers = function(data) {
       })(results[i].marker, i));
     }
   }
-}
+};
 // This function animates google maps markers.
 var bounce = function(bouncer) {
   for (var i = 0; i < allMarkers.length; i++) {
     allMarkers[i].setAnimation(null);
   }
   bouncer.setAnimation(google.maps.Animation.BOUNCE);
-}
+};
 
 var yelp = function(around, searchfor) {
   var auth = {
@@ -183,7 +183,7 @@ var yelp = function(around, searchfor) {
 
   var parameterMap = OAuth.getParameterMap(message.parameters);
   yelpAjax(message.action, parameterMap);
-}
+};
 // Yelp ajax request.
 var yelpAjax = function(url, yelpdata) {
   $.ajax({
@@ -204,4 +204,4 @@ var yelpAjax = function(url, yelpdata) {
       }
     }
   });
-}
+};

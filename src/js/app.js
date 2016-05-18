@@ -36,7 +36,7 @@ var viewModel = function() {
     self.query('');
     listReset();
     markerReset();
-  }
+  };
 };
 
 
@@ -48,12 +48,12 @@ var googleSuccess = function() {
   initMap('Wicker Park');
   yelp('Wicker Park', 'Bars');
   ko.applyBindings(new viewModel());
-}
+};
 
 var googleError = function() {
-  alert("Something went wrong with Google Maps.")
-}
+  alert("Something went wrong with Google Maps.");
+};
 
 var authError = function() {
-  alert("Something went wrong with Yelp.")
-}
+  alert("Something went wrong with Yelp.");
+};
