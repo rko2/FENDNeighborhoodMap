@@ -116,7 +116,6 @@ var googleMarkers = function(data) {
       results[i].highlighted = ko.observable(false);
       ajaxResults.push(results[i]);
       filteredResults.push(results[i]);
-      console.log(ajaxResults()[i].name);
       var position = new google.maps.LatLng(results[i].location.coordinate.latitude, results[i].location.coordinate.longitude);
       results[i].marker = new google.maps.Marker({
         position: position,
