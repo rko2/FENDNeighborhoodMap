@@ -9,8 +9,8 @@
 </head>
 
 <body>
+  <button class="DisplayButton" type="button">Toggle on Mobile</button>
   <nav class="Search">
-    <button class="DisplayButton" type="button">Toggle on Mobile</button>
     <form data-bind="submit: updateResults">
       <input type="text" data-bind="value: term">
       <input type="text" data-bind="value: area">
@@ -23,7 +23,7 @@
     </form>
     <!-- ko if: filteredResults().length > 0 -->
     <ul class="Search Results Mobile" data-bind="foreach: filteredResults">
-      <li><button data-bind="click: $parent.openWindow">Info</button><a data-bind="attr: { href: url }, text: name, event: { mouseover: $parent.highlightOn, mouseout: $parent.highlightOff }, css: { Selected: highlighted }" target="_blank"></a><br><img data-bind="attr: {src: rating_img_url_small}"></li><br>
+      <li><button data-bind="click: $parent.openWindow">Info</button><a data-bind="attr: { href: url }, text: name, event: { mouseover: $parent.highlightOn, mouseout: $parent.highlightOff }, css: { Selected: highlighted }" target="_blank"></a><br><img data-bind="attr: {src: rating_img_url_small}"></li>
     </ul>
     <!-- /ko -->
     <!-- ko if: filteredResults().length === 0 -->

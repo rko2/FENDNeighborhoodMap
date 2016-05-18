@@ -13,6 +13,10 @@ form {
 }
 
 
+input {
+  box-sizing: border-box;
+}
+
 li {
   list-style-type: none;
   padding: 0;
@@ -25,7 +29,7 @@ li {
     display: none
   }
   .Search {
-    width: 50%;
+    max-width: 30%;
   }
 }
 
@@ -38,6 +42,9 @@ main {
 
 .DisplayButton {
   margin-bottom: 3px;
+  position: fixed;
+  z-index: 99;
+  top: 10%;
 }
 
 
@@ -80,9 +87,4 @@ main {
 
 .Selected {
   background-color: grey;
-}
-
-
-.NoHits {
-  display: none;
 }
