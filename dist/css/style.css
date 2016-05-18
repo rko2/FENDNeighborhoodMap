@@ -1,24 +1,54 @@
-html, body {
+html,
+body {
   height: 100vh;
   width: 100vw;
   margin: 0;
 }
+
+
+input,
+form {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+input {
+  box-sizing: border-box;
+}
+
+li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+
 @media (max-width: 600px) {
-  .mobile {
+  .Mobile {
     display: none
   }
-  .search {
-    width: 50%;
+  .Search {
+    max-width: 30%;
   }
 }
-#map {
+
+
+main {
   height: 100vh;
   margin: 0;
 }
-#displaybutton {
+
+
+.DisplayButton {
   margin-bottom: 3px;
+  position: fixed;
+  z-index: 99;
+  top: 10%;
 }
-.search {
+
+
+.Search {
   position: fixed;
   padding: 1%;
   z-index: 99;
@@ -27,25 +57,34 @@ html, body {
   border: solid black;
   border-width: 1px;
   background-color: #fffcf0;
-  max-height: 25vh;
-  width: 15%;
+  width: auto;
 }
-.results {
-  position: fixed;
+
+
+.Results {
   overflow-y: auto;
   max-height: 80vh;
   overflow-x: hidden;
+  width: auto;
 }
-.infowindow {
+
+
+.InfoWindow {
   max-width: 20vw;
 }
-.topinfo {
+
+
+.TopInfo {
   padding: 0;
 }
-.snippet {
+
+
+.Snippet {
   border-top: 1px solid grey;
   padding-top: 5px;
 }
-.selected {
+
+
+.Selected {
   background-color: grey;
 }
