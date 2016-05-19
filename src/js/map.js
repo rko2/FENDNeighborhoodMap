@@ -193,13 +193,10 @@ var yelpAjax = function(url, yelpdata) {
     'global': true,
     'cache': true,
     'jsonpCallback': 'cb',
-    'timeout': 3000,
-    'success': function(data) {
-      googleMarkers(data);
-    },
-    // Implement error handling using timeout for jsonp.
-    'error': function(x, t, m) {
-        alert("Looks like something didn't work out with the Yelp! search.");
-    }
-  });
+    'timeout': 3000
+  }).done(function (data) {
+    googleMarkers(data);
+  }).fail(function (jqXHR, textStatus) {
+    alert("Looks like something didn't work out with the Yelp! search.")
+  });;
 };
