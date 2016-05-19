@@ -131,6 +131,7 @@ var googleMarkers = function(data) {
         return function() {
           makeInfoWindow(m);
           bounce(m);
+          map.setCenter(m.getPosition());
         };
       })(results[i].marker, i));
     }
